@@ -1,29 +1,14 @@
 #use data block to get ami id dynamically
-data "aws_ami" "ec2_ami" {
-  owners = ["amazon"]
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp3"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+data "aws_ssm_parameter" "linux_ami" {
+  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
 }
+
 
 #create launch templaete for ec2 instances
 resource "aws_launch_template" "ec2_launch_template" {
   region        = var.region
   name          = "ec2-launch-template"
-  image_id      = data.aws_ami.ec2_ami.id
+  image_id      = data.aws_ssm_parameter.linux_ami.name
   instance_type = "t3.micro"
 #   metadata_options {
 #     http_endpoint          = "enabled"
