@@ -1,17 +1,13 @@
 #use data block to get ami id dynamically
 data "aws_ami" "ec2_ami" {
-    region = var.region
   owners = ["amazon"]
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+    values = ["amzn2-ami-hvm-*-x86_64-gp3"]
   }
-  filter {
-    name   = "free-tier-eligible"
-    values = ["True"]
-  }
+
   filter {
     name   = "architecture"
     values = ["x86_64"]
