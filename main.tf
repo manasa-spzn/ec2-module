@@ -8,7 +8,7 @@ data "aws_ssm_parameter" "linux_ami" {
 resource "aws_launch_template" "ec2_launch_template" {
   region        = var.region
   name          = "ec2-launch-template"
-  image_id      = data.aws_ssm_parameter.linux_ami.name
+  image_id      = data.aws_ssm_parameter.linux_ami.value
   instance_type = "t3.micro"
 #   metadata_options {
 #     http_endpoint          = "enabled"
