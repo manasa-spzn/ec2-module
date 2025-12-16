@@ -10,11 +10,11 @@ resource "aws_launch_template" "ec2_launch_template" {
   name          = "ec2-launch-template"
   image_id      = data.aws_ssm_parameter.linux_ami.value
   instance_type = "t3.micro"
-#   metadata_options {
-#     http_endpoint          = "enabled"
-#     instance_metadata_tags = "enabled"
-#     http_tokens            = "optional"
-#   }
+  metadata_options {
+    http_endpoint          = "enabled"
+    instance_metadata_tags = "enabled"
+    http_tokens            = "optional"
+  }
   disable_api_termination = false
   disable_api_stop        = false
   vpc_security_group_ids  = [var.ec2_sg_id]
